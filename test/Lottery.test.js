@@ -33,7 +33,7 @@ describe('Lottery Contract', () => {
     // assert --> value that is should be, value that it is
     assert.equal(accounts[0], players[0]);
     assert.equal(1, players.length);
-  })
+  });
 
   it('should allow multiple accounts to enter', async () => {
 
@@ -52,11 +52,27 @@ describe('Lottery Contract', () => {
       value: web3.utils.toWei('0.2', 'ether')
     } )
 
+    const players = await lottery.methods.returnPlayers().call( {
+      from: accounts[0]
+    } )
+
     assert.equal(accounts[0], players[0]);
     assert.equal(accounts[1], players[1]);
     assert.equal(accounts[2], players[2]);
     assert.equal(3, players.length);
 
-  })
+  });
+
+  it ('should reject entries that contain no value', async () => {
+    try {
+      await lottery.methods.enter().send({
+        from: accounts[0],
+        value: 200
+      });
+      assert(false);
+    } catch (err) {
+      assert(err);
+    }
+  }) 
 
 })
