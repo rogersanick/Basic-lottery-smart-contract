@@ -73,6 +73,17 @@ describe('Lottery Contract', () => {
     } catch (err) {
       assert(err);
     }
-  }) 
+  });
+
+  it('should reject attempts to call pick winner from non-managers', async () => {
+    try {
+      await lottery.methods.pickWinner().send({
+        from: accounts[1]
+      })
+      assert(false);
+    } catch(err) {
+      assert(err);
+    }
+  })
 
 })
