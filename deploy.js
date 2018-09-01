@@ -18,5 +18,6 @@ const web3 = new Web3(provider);
     .deploy({ data: '0x' + bytecode })
     .send({ gas: '5000000', from: accounts[0] });
 
+  console.log(interface);
   console.log('Contract deployed to ', result.options.address);
 })();
